@@ -8742,6 +8742,8 @@ runFunction(function()
 			end
 		end
 	})
+    task.spawn(function()
+        repeat task.wait() until game:IsLoaded
     local ZipDisabler = {Enabled = false}
 	ZipDisabler = GuiLibrary.ObjectsThatCanBeSaved.UtilityWindow.Api.CreateOptionsButton({
 		Name = "PlayerZipTP",
@@ -8754,7 +8756,7 @@ runFunction(function()
                     if random == lplr or random.Team == lplr.Team then
                         task.spawn(function()
                             repeat task.wait()
-                                playersService:GetPlayers()[math.random(1,#playersService:GetPlayers())]
+                                random = playersService:GetPlayers()[math.random(1,#playersService:GetPlayers())]
                             until random ~= lplr and random.Team == lplr.Team
                         end)
                     end
@@ -8766,7 +8768,7 @@ runFunction(function()
 		end
 	})
 end)
-
+end)
 runFunction(function()
 	local OpenEnderchest = {Enabled = false}
 	OpenEnderchest = GuiLibrary.ObjectsThatCanBeSaved.UtilityWindow.Api.CreateOptionsButton({
