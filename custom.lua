@@ -8742,32 +8742,6 @@ runFunction(function()
 			end
 		end
 	})
-    task.spawn(function()
-        repeat task.wait() until game:IsLoaded
-    local ZipDisabler = {Enabled = false}
-	ZipDisabler = GuiLibrary.ObjectsThatCanBeSaved.UtilityWindow.Api.CreateOptionsButton({
-		Name = "PlayerZipTP",
-		Function = function(callback)
-			if callback then
-            pcall(function()
-                if lplr.Character.Humanoid.SeatPart ~= nil then
-                    lplr.Character.Humanoid.SeatPart:Remove()
-                    local random = playersService:GetPlayers()[math.random(1,#playersService:GetPlayers())]
-                    if random == lplr or random.Team == lplr.Team then
-                        task.spawn(function()
-                            repeat task.wait()
-                                random = playersService:GetPlayers()[math.random(1,#playersService:GetPlayers())]
-                            until random ~= lplr and random.Team == lplr.Team
-                        end)
-                    end
-                    lplr.Character.PrimaryPart.CFrame = random.Character.PrimaryPart.CFrame
-                    ZipDisabler.ToggleButton(false)
-                end
-            end)
-			end
-		end
-	})
-end)
 end)
 runFunction(function()
 	local OpenEnderchest = {Enabled = false}
