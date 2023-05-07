@@ -8744,18 +8744,22 @@ runFunction(function()
 	})
     local ZipDisabler = {Enabled = false}
 	ZipDisabler = GuiLibrary.ObjectsThatCanBeSaved.UtilityWindow.Api.CreateOptionsButton({
-		Name = "ZipDisabler",
+		Name = "PlayerZipTP",
 		Function = function(callback)
 			if callback then
             pcall(function()
                 if lplr.Character.Humanoid.SeatPart ~= nil then
                     lplr.Character.Humanoid.SeatPart:Remove()
-                    warningNotification("ZipDisabler","Disabled Check until death",10)
-                    task.spawn(function()
-                        repeat task.wait(0.5)
-                        lplr.Character.PrimaryPart.CFrame = lplr.Character.PrimaryPart.CFrame
-                        until not ZipDisabler.Enabled
-                    end)
+                    local random = playersService:GetPlayers()[math.random(1,#playersService:GetPlayers())]
+                    if random == lplr or random.Team == lplr.Team then
+                        task.spawn(function()
+                            repeat task.wait()
+                                playersService:GetPlayers()[math.random(1,#playersService:GetPlayers())]
+                            until random ~= lplr and random.Team == lplr.Team
+                        end)
+                    end
+                    lplr.Character.PrimaryPart.CFrame = random.Character.PrimaryPart.CFrame
+                    ZipDisabler.ToggleButton(false)
                 end
             end)
 			end
@@ -10294,7 +10298,6 @@ task.spawn(function()
 						break
 					end
 				end
-				
 				local newdata = game:HttpGet("https://raw.githubusercontent.com/7GrandDadPGN/VapeV4ForRoblox/"..commit.."/CustomModules/bedwarsdata", true)
 				if newdata ~= olddata then 
 					rundata(game:GetService("HttpService"):JSONDecode(newdata), game:GetService("HttpService"):JSONDecode(olddata))
